@@ -36,11 +36,11 @@ public class MathService {
 		return var;
 	}
 
-	public Integer findSum(List<Integer> count) {
+	public Double findSum(List<Double> count) {
 		// TODO Auto-generated method stub
 
-		int sum = 0;
-		for (Integer i : count) {
+		Double sum = 0.0;
+		for (Double i : count) {
 			sum = sum + i;
 		}
 

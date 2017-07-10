@@ -3,6 +3,7 @@ package com.gal.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,13 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gal.service.MathService;
 
 @RestController
-@RequestMapping("/math")
+@RequestMapping(value = "/math", consumes = MediaType.ALL_VALUE)
 public class MathController {
 
 	@Autowired
 	private MathService mathservice;
+
 	@GetMapping("/calculate")
-	public Double sum(@RequestParam(required = true, value = "x") Double variable1,
+	public String sum(@RequestParam(required = true, value = "x") Double variable1,
 			@RequestParam(required = true, value = "y") Double variable2,
 			@RequestParam(required = true, value = "operation") String opera) {
 
@@ -40,14 +42,14 @@ public class MathController {
 			var = 0.0;
 			break;
 		}
-		return var;
+		return Double.toString(var);
 	}
 
 	@PostMapping("/sum")
-	public Integer Sum(@RequestParam(value = "n") List<Integer> count) {
+	public String Sum(@RequestParam(value = "n") List<Double> count) {
 
-		Integer sumValue = mathservice.findSum(count);
-		return sumValue;
+		Double sumValue = mathservice.findSum(count);
+		return Double.toString(sumValue);
 	}
 
 }
