@@ -23,7 +23,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest(MathController.class)
 public class MathControllerTest {
-
+	private static final int length = 4;
+	private static final int width = 5;
+	private static final int height = 6;
 	@Autowired
 	private WebApplicationContext ctx;
 
@@ -56,13 +58,19 @@ public class MathControllerTest {
 				.perform(get("/math/calculate?operation={opera}&x={var1}&y={var2}", "divide", 6.0, 2.0)
 						.accept(MediaType.TEXT_PLAIN_VALUE))
 				.andDo(print()).andExpect(status().isOk()).andExpect(content().string("3.0"));
-		
-	this.mockMvc
-		.perform(post("/math/sum?n={var1}&n={var2}&n={var3}", 1.0, 6.0, 2.0)
-				.accept(MediaType.TEXT_PLAIN_VALUE))
-		.andDo(print()).andExpect(status().isOk()).andExpect(content().string("9.0"));		
-		
-	
+
+		this.mockMvc
+				.perform(post("/math/sum?n={var1}&n={var2}&n={var3}", 1.0, 6.0, 2.0).accept(MediaType.TEXT_PLAIN_VALUE))
+				.andDo(print()).andExpect(status().isOk()).andExpect(content().string("9.0"));
+
+		this.mockMvc.perform(get("/math/calculate?x={var1}&y={var2}", 6.0, 2.0).accept(MediaType.TEXT_PLAIN_VALUE))
+				.andDo(print()).andExpect(status().isOk()).andExpect(content().string("8.0"));
+
+		this.mockMvc
+				.perform(post(String.format("/math/volume/%d/%d/%d", length, width, height))
+						.accept(MediaType.TEXT_PLAIN_VALUE))
+				.andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string("The volume of a 4 x 5 x 6 rectangle is  120"));
 
 	}
 

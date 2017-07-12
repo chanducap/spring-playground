@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MathService {
 
-	public Double sum(Double variable1, Double variable2) {
+	public Double add(Double variable1, Double variable2) {
 		// TODO Auto-generated method stub
 		Double var = variable1 + variable2;
 		return var;
@@ -46,6 +46,20 @@ public class MathService {
 
 		return sum;
 
+	}
+
+	public Double volume(Double length, Double breadth, Double height) {
+		// TODO Auto-generated method stub
+		Double volume=length*breadth*height;
+		
+		return volume;
+	}
+
+	public Double sum(Double variable1, Double variable2) {
+		// TODO Auto-generated method stub
+		
+		Double totalSum=variable1+variable2;
+		return totalSum;
 	}
 		
 }
