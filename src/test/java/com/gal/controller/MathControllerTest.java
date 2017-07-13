@@ -102,6 +102,13 @@ public class MathControllerTest {
 			.param("height", "3.0")
 			.contentType(MediaType.ALL_VALUE).accept(MediaType.ALL_VALUE))//I am getting the null pointer exception when i invoke this url.
 			.andExpect(status().isOk()).andExpect(content().string("Area of a  4 x 3 rectangle is 12.0"));
+	
+	this.mockMvc.perform(post("/math/area")
+			.param("type", "circle")
+			.param("width", "4.0")
+			.param("height", "3.0")
+			.contentType(MediaType.ALL_VALUE).accept(MediaType.ALL_VALUE))//I am getting the null pointer exception when i invoke this url.
+			.andExpect(status().isOk()).andExpect(content().string("Invalid Request"));
 }
 
 }
