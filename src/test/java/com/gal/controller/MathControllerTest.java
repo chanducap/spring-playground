@@ -71,17 +71,17 @@ public class MathControllerTest {
 
 		this.mockMvc.perform(get("/math/calculate?x={var1}&y={var2}", 6.0, 2.0).accept(MediaType.TEXT_PLAIN_VALUE))
 				.andDo(print()).andExpect(status().isOk()).andExpect(content().string("8.0"));
-		/*
-		 * this.mockMvc .perform(post("/math/volume/{var1}/{var2}/{var3}", 2.0,
-		 * 3.0, 2.0) .accept(MediaType.TEXT_PLAIN_VALUE))
-		 * .andDo(print()).andExpect(status().isOk()) .andExpect(content().
-		 * string("The volume of a 2 x 3 x 2 rectangle is  12.0"));
-		 */
+		
+		 this.mockMvc .perform(post("/math/volume/{var1}/{var2}/{var3}", 2.0,
+		 3.0, 2.0) .accept(MediaType.TEXT_PLAIN_VALUE))
+		.andDo(print()).andExpect(status().isOk()) .andExpect(content().
+		string("The volume of a 2 x 3 x 2 rectangle is  12.0"));
+		
 	}
 
 	@Test
 	public void findAreaCircleRectangle() throws Exception {
-		
+			
 		AreaObject CircleRec = new AreaObject();//I am creating the object and binding the values for it.
 		CircleRec.setType("circle");
 		CircleRec.setRadius(4.0);
@@ -90,24 +90,19 @@ public class MathControllerTest {
 		String json = mapper.writeValueAsString(CircleRec);
 		System.out.println(json);
 		this.mockMvc.perform(post("/math/area")
-				.content(json).contentType(MediaType.ALL_VALUE).accept(MediaType.ALL_VALUE))//I am getting the null pointer exception when i invoke this url.
+				.param("type", "circle")
+				.param("radius", "4.0")
+				.contentType(MediaType.ALL_VALUE).accept(MediaType.ALL_VALUE))//I am getting the null pointer exception when i invoke this url.
 				.andExpect(status().isOk()).andExpect(content().string("Area of a circle with a radius of  4 is 50.26544"));
-
-	}
+	
+	
+	this.mockMvc.perform(post("/math/area")
+			.param("type", "rectangle")
+			.param("width", "4.0")
+			.param("height", "3.0")
+			.contentType(MediaType.ALL_VALUE).accept(MediaType.ALL_VALUE))//I am getting the null pointer exception when i invoke this url.
+			.andExpect(status().isOk()).andExpect(content().string("Area of a  4 x 3 rectangle is 12.0"));
+}
 
 }
-//String CircleArea="50.26544";
-		// String Circleradius="4.0";
-		/*
-		 * MockHttpServletRequestBuilder request1 = post("math/area")
-		 * .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-		 * .param("type","circle" ) .param("radius", "4.0");
-		 * 
-		 * 
-		 * this.mockMvc.perform(request1) .andExpect(status().isOk())
-		 * .andExpect(content().string(String.
-		 * format("Area of a circle with a radius of %s is %s", 4.0,
-		 * 50.26544)));
-		 */
-		/*
-		 */
+
