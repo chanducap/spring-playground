@@ -48,11 +48,11 @@ public class MathService {
 
 	}
 
-	public Double volume(Double length, Double breadth, Double height) {
+	public Double volume(double length, double breadth, double height) {
 		// TODO Auto-generated method stub
-		Double volume=length*breadth*height;
+		Double x=length*breadth*height;
 		
-		return volume;
+		return x;
 	}
 
 	public Double sum(Double variable1, Double variable2) {
@@ -60,6 +60,29 @@ public class MathService {
 		
 		Double totalSum=variable1+variable2;
 		return totalSum;
+	}
+
+	public Double findCircleArea(Double radius) {
+		// TODO Auto-generated method stub
+		
+		Double area = 3.14159*radius*radius;
+		
+		return area;
+	}
+
+	public Double findRectangleArea(Double width,Double height) {
+		// TODO Auto-generated method stub
+		Double area= width*height;
+		
+		
+		return area;
+	}
+	public  String fmt(double d)
+	{
+	    if(d == (long) d)
+	        return String.format("%d",(long)d);
+	    else
+	        return String.format("%s",d);
 	}
 		
 }
