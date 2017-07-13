@@ -72,7 +72,7 @@ public class MathController {
 	}
 
 	@PostMapping(value = "/area" /*consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE*/)
-	public String findAreaCircleRectangle(AreaObject area) {
+	public String findAreaCircleRectangle(@RequestBody AreaObject area) {
 
 		if (area.getType().equalsIgnoreCase(SHAPE_CIRCLE) && !StringUtils.isEmpty(area.getRadius())) {
 			Double Area = mathservice.findCircleArea(area.getRadius());

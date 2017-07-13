@@ -82,18 +82,20 @@ public class MathControllerTest {
 	@Test
 	public void findAreaCircleRectangle() throws Exception {
 			
-		AreaObject CircleRec = new AreaObject();//I am creating the object and binding the values for it.
-		CircleRec.setType("circle");
+		/*AreaObject CircleRec = new AreaObject();//I am creating the object and binding the values for it.
+		CircleRec.setType("circle");              // But when you use this piece of code you need to change the respective method in the controller with @RequestBody
 		CircleRec.setRadius(4.0);
 		CircleRec.setHeight(2.0);
 		CircleRec.setWidth(2.0);
 		String json = mapper.writeValueAsString(CircleRec);
 		System.out.println(json);
+			
 		this.mockMvc.perform(post("/math/area")
-				.param("type", "circle")
-				.param("radius", "4.0")
-				.contentType(MediaType.ALL_VALUE).accept(MediaType.ALL_VALUE))//I am getting the null pointer exception when i invoke this url.
-				.andExpect(status().isOk()).andExpect(content().string("Area of a circle with a radius of  4 is 50.26544"));
+				.content(json)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.ALL_VALUE))
+				.andExpect(status().isOk())
+                .andExpect(content().string("Area of a circle with a radius of  4 is 50.26544"));*/
 	
 	
 	this.mockMvc.perform(post("/math/area")
