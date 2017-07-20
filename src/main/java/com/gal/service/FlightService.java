@@ -19,7 +19,7 @@ public class FlightService {
 	public Flight getFlightDetails() {
 		// TODO Auto-generated method stub
 		Flight flight = new Flight();
-		flight.setDeparts(new Date(2017-1900, 04, 21, 10, 34));
+		flight.setDeparts(new Date(2017 - 1900, 04, 21, 10, 34));
 		List<Ticket> list = new ArrayList<>();
 		Ticket t1 = new Ticket();
 		Person passenger = new Person();
@@ -30,7 +30,6 @@ public class FlightService {
 		list.add(t1);
 		flight.setTickets(list);
 		return flight;
-
 	}
 
 	public static class Flight {
@@ -38,6 +37,7 @@ public class FlightService {
 		@JsonProperty("Departs")
 		private Date departs;
 		@JsonProperty("Tickets")
+
 		private List<Ticket> tickets = Collections.emptyList();
 
 		public Date getDeparts() {
@@ -58,7 +58,8 @@ public class FlightService {
 
 	}
 
-	static class Ticket {
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	public static class Ticket {
 		@JsonProperty("Passenger")
 		private Person passenger;
 		@JsonProperty("Price")
@@ -80,8 +81,9 @@ public class FlightService {
 			this.price = price;
 		}
 	}
+
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	static class Person {
+	public static class Person {
 		@JsonProperty("FirstName")
 		private String fistName;
 		@JsonProperty("LastName")
@@ -107,7 +109,7 @@ public class FlightService {
 	public List<Flight> getallFlightDetails() {
 		// TODO Auto-generated method stub
 		Flight flight1 = new Flight();
-		flight1.setDeparts(new Date(2017-1900, 04, 11, 10, 34));
+		flight1.setDeparts(new Date(2017 - 1900, 04, 11, 10, 34));
 		List<Ticket> list = new ArrayList<>();
 		Ticket t1 = new Ticket();
 		Person passenger = new Person();
@@ -119,7 +121,7 @@ public class FlightService {
 		flight1.setTickets(list);
 
 		Flight flight2 = new Flight();
-		flight2.setDeparts(new Date(2017-1900, 04, 01, 10, 34));
+		flight2.setDeparts(new Date(2017 - 1900, 04, 01, 10, 34));
 		List<Ticket> list1 = new ArrayList<>();
 		Ticket t2 = new Ticket();
 		Person passenger2 = new Person();
@@ -130,7 +132,62 @@ public class FlightService {
 		list1.add(t2);
 		flight2.setTickets(list);
 		return Arrays.asList(flight1, flight2);
+	}
+
+	public Response getFlightTicketPrice(FlightSum flightInfo) {
+		// TODO Auto-generated method stub
+		List<Ticket> ticketInfo = flightInfo.getTickets();
+		Integer sum = 0;
+		int i = 0;
+		while (i < ticketInfo.size()) {
+			Ticket t2 = ticketInfo.get(i);
+			sum = sum + Integer.parseInt(t2.getPrice());
+			i++;
+		}
+		Response response = new Response();
+		response.setPrice(sum.toString());
+		return response;
 
 	}
 
+	public FlightSum getFlightTicket() {
+		// TODO Auto-generated method stub
+		FlightSum f1 = new FlightSum();
+		List<Ticket> a1 = new ArrayList<>();
+		Ticket t1 = new Ticket();
+		Person p1 = new Person();
+		p1.setFistName("hi");
+		p1.setLastName("world");
+		t1.setPassenger(p1);
+		t1.setPrice("300");
+		a1.add(t1);
+		f1.setTickets(a1);
+		return f1;
+		// blog.articles[0].getTitle();
+	}
+
+	public static class Response {
+		private String price;
+
+		public String getPrice() {
+			return price;
+		}
+
+		public void setPrice(String price) {
+			this.price = price;
+		}
+
+	}
+
+	public static class FlightSum {
+		private List<Ticket> tickets;
+
+		public List<Ticket> getTickets() {
+			return tickets;
+		}
+
+		public void setTickets(List<Ticket> tickets) {
+			this.tickets = tickets;
+		}
+	}
 }
