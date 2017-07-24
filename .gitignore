@@ -8,6 +8,7 @@ target/
 .project
 .settings
 .springBeans
+excludesfile = C:\dev\galvanize\spring-playground\src\main\resources
 
 ### IntelliJ IDEA ###
 .idea
