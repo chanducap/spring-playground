@@ -3,6 +3,7 @@ package com.gal.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +33,7 @@ public class LessonsController {
         return this.repository.findOne(user);
     }
 
-    @PostMapping("")
+    @PostMapping("/lesson")
     public Lesson create(@RequestBody Lesson lesson) {
         return this.repository.save(lesson);
     }
@@ -40,6 +41,17 @@ public class LessonsController {
     @DeleteMapping("/{DeleteUserId}")
     public void DeleteUser(@PathVariable Long DeleteUserId) {
          this.repository.delete(DeleteUserId);
+    }
+    
+    @PatchMapping("/{lessonNum}")
+    public Lesson updateSomeDetails(@PathVariable Long lessonNum,@RequestBody Lesson lesson) {
+         Lesson record=repository.findOne(lessonNum);
+         record.setId(lesson.getId());
+         record.setTitle(lesson.getTitle());
+         record.setDeliveredOn(lesson.getDeliveredOn());
+        return this.repository.save(record);
+         
+         
     }
 
 }
